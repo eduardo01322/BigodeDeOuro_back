@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ServicoController extends Controller
 {
     //CADASTRO DE SERVICO 
-    public function servico(ServicoFormRequest $request)
+    public function servicos(ServicoFormRequest $request)
     {
         $servico = Servico::create([
             'nome' => $request->nome,
@@ -55,8 +55,8 @@ class ServicoController extends Controller
             'data' => "Descricao não encontrado"
         ]);
     }
-    //PESQUISA POR SERVIÇO !!!!(id)!!!!
-    public function pesquisaPorId($id)
+    //PESQUISA POR id
+    public function pesquisarPorId($id)
     {
         $servico = Servico::find($id);
         if ($servico == null) {
@@ -116,7 +116,7 @@ class ServicoController extends Controller
             'message' =>  "Serviço excluido com sucesso"
         ]));
     }
-    public function visualizarServico()
+    public function retornarTodos()
     {
         $servico =  Servico::all();
         if (!isset($servico)) {

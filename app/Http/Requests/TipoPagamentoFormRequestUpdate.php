@@ -41,34 +41,13 @@ class TipoPagamentoFormRequestUpdate extends FormRequest
         public function messages()
         {
                 return [
-
-
-                        //Nome
-                        'nome.required' => 'Nome é obrigatorio',
+                        'nome.required' => 'nome é obrigatorio',
                         'nome.max' => 'O campo nome deve conter  no maximo 120 caracteres',
                         'nome.min' => 'O campo nome deve conter no minimo 2 caracteres',
-                        'nome.unique' => 'Nome já cadastrado, informe outro',
-
-                        //Status
+                        'nome.unique' => 'nome já cadastrado, informe outro',
                         'status.required' => 'O compo status é obrigatorio.',
-
-                        //TAXA
                         'taxa.required' => 'O campo taxa  é obrigatorio',
-
                         'taxa.max' => 'O campo  taxa  deve conter 120 caracteres',
-
-
-
-
-
-
-
-
-
-
-
-
-
                 ];
         }
 }

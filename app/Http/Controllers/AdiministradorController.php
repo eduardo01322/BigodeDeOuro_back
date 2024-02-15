@@ -25,7 +25,7 @@ class AdiministradorController extends Controller
     }
 
 //PESQUISA POR NOME
-public function pesquisarPorAdiministrador(Request $request)
+public function pesquisarPorNome(Request $request)
 {
     $Adiministrador = Adiministrador::where('nome', 'like', '%' . $request->nome . '%')->get();
     if (count($Adiministrador)) {
@@ -55,7 +55,7 @@ public function pesquisarPorCpf(Request $request)
     ]);
 }
 //PESQUISA POR E-MAIL
-public function PesquisarPorEmailAdiministrador(Request $request)
+public function PesquisarPorEmail(Request $request)
 {
     $Adiministrador = Adiministrador::where('email', 'like', '%' . $request->email . '%')->get();
     if (count($Adiministrador) > 0) {
@@ -70,7 +70,7 @@ public function PesquisarPorEmailAdiministrador(Request $request)
     ]);
 }
 //ATUALIZAÇÃO DE Adiministrador
-public function updateAdiministrador(AdiministradorUserRequestUpdate $request)
+public function update(AdiministradorUserRequestUpdate $request)
 {
 $Adiministrador = Adiministrador::find($request->id);
 if (!isset($Adiministrador)) {
@@ -110,7 +110,7 @@ public function excluir($Adiministrador)
      'message' =>  "Adiministrador excluido com sucesso"
  ]));
 }
-public function visualizarCadastroAdiministrador()
+public function retornarTodos()
 {
  $Adiministrador = Adiministrador::all();
  if (!isset($Adiministrador)) {
@@ -124,7 +124,7 @@ public function visualizarCadastroAdiministrador()
      'data' => $Adiministrador
  ]);
 }
-public function pesquisarPorIdAdiministrador($id)
+public function pesquisarPorId($id)
 {
 $Adiministrador = Adiministrador::find($id);
  if ($Adiministrador == null) {
@@ -139,21 +139,7 @@ $Adiministrador = Adiministrador::find($id);
      'data' => $Adiministrador
  ]);
 }
-public function redefinirSenhaAdiministrador(Request $request){
-$Adiministrador = Adiministrador::where('email', $request->email)->first();
-if (!isset($Adiministrador)){
-    return response()->json([
-        'status' => false,
-        'message' => "Adiministrador não encontrado"
-    ]);
-}
-$Adiministrador->password = Hash::make($Adiministrador->cpf);
-$Adiministrador->update();    
-return response()->json([
-    'status' => false,
-    'message' => "Sua senha foi atualizada"
-]);
-}
+
 public function redefinirSenha(Request $request){
     $profissional = Adiministrador::where('email', $request->email)->first();
     if (!isset($profissional)){
@@ -162,7 +148,7 @@ public function redefinirSenha(Request $request){
             'message' => "Adiministrador não encontrado"
         ]);
     }
-    $novaSenha = $request->novaSenha; //  campo no formulário  chamado de "novaSenha"
+    $novaSenha = $request->novaSenha;
     $profissional->password = $novaSenha;
     $profissional->update();    
     return response()->json([

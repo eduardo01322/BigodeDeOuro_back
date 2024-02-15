@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class TipoDePagamentoController extends Controller
 {
 
-    public function cadastroTipoPagamento(TipoPagamentoFormRequest $request)
+    public function pagamentos(TipoPagamentoFormRequest $request)
     {
         $pagamento = TipoPagamento::create([
             'nome' => $request->nome,
@@ -41,8 +41,23 @@ class TipoDePagamentoController extends Controller
             'data' => "Tipo de pagamento não encontrado"
         ]);
     }
+
+    public function pesquisarPorId($id){
+        $pagamento = TipoPagamento::find($id);
+        if($pagamento == null){
+            return response()->json([
+                'status'=> false,
+                'message' => "Não encontrado"
+            ]);     
+        }
+        return response()->json([
+            'status'=> true,
+            'data'=> $pagamento
+        ]);
+    }
+
     //FUNÇÃO DE EXCLUIR
-    public function deletarpagamento($pagamento)
+    public function excluir($pagamento)
     {
         $pagamento = TipoPagamento::find($pagamento);
         if (!isset($pagamento)) {
@@ -58,7 +73,7 @@ class TipoDePagamentoController extends Controller
         ]));
     }
     //ATUALIZAÇÃO DE pagamento
-    public function updatepagamento(TipoPagamentoFormRequestUpdate $request)
+    public function update(TipoPagamentoFormRequestUpdate $request)
 {
     $pagamento = TipoPagamento::find($request->id);
     if (!$pagamento) {
@@ -105,7 +120,7 @@ class TipoDePagamentoController extends Controller
         'message' => 'Tipo de pagamento atualizado'
     ]);
 }
-    public function visualizarCadastroTipoPagamento()
+    public function retornarTodos()
     {
         $pagamento = TipoPagamento::all();
         if (count($pagamento)<=0) {
@@ -120,7 +135,7 @@ class TipoDePagamentoController extends Controller
         ]);
     }
     //Visualizar Cadastro Tipo Pagamentob Habilitado
-    public function visualizarCadastroTipoPagamentoHabilitado()
+    public function retornarTodosHabilitados()
     {
         $pagamento = TipoPagamento::where('status', 'habilitado')->get();
         if ($pagamento->count() > 0) {
@@ -135,7 +150,7 @@ class TipoDePagamentoController extends Controller
         ]);
     }
     //Visualizar Tipo Pagamento Desabilitado
-    public function visualizarCadastroTipoPagamentoDesabilitado()
+    public function retornarTodosDesabilitados()
     {
         $pagamento = TipoPagamento::where('status', 'desabilitado')->get();
         if ($pagamento->count() > 0) {

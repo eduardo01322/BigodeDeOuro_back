@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class ClienteController extends Controller
 {
     //CADASTRO DE CLIENTE
-    public function cadastroCliente(ClienteFormRequest $request)
+    public function clientes(ClienteFormRequest $request)
     {
         $cliente = Cliente::create([
             'nome' => $request->nome,
@@ -37,7 +37,7 @@ class ClienteController extends Controller
         ], 200);
     }
     //PESQUISA POR NOME
-    public function pesquisarPorCliente(Request $request)
+    public function pesquisarPorNome(Request $request)
     {
         $cliente = Cliente::where('nome', 'like', '%' . $request->nome . '%')->get();
         if (count($cliente)) {
@@ -112,7 +112,7 @@ class ClienteController extends Controller
         ]);
     }
     //ATUALIZAÇÃO DE CLIENTE
-    public function updateCliente(ClienteFormRequestUpdate $request)
+    public function update(ClienteFormRequestUpdate $request)
     {
         $cliente = Cliente::find($request->id);
         if (!isset($cliente)) {
@@ -167,7 +167,7 @@ class ClienteController extends Controller
         ]);
     }
     //FUNÇÃO DE EXCLUIR
-    public function deletar($cliente)
+    public function excluir($cliente)
     {
         $cliente = Cliente::find($cliente);
         if (!isset($cliente)) {

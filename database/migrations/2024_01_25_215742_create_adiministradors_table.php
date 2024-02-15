@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('adiministradors', function (Blueprint $table) {
             $table->id();
             $table->string('nome',120)->nullable(false);
-            $table->string('email',120)->nullable(false)->unique();
-            $table->string('cpf',11)->nullable(false)->unique();
+            $table->string('email',120)->unique()->nullable(false);
+            $table->string('cpf',11)->unique()->nullable(false);
             $table->string('password')->nullable(false);
             $table->timestamps();
         });

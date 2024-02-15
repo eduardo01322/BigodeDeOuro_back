@@ -73,24 +73,24 @@ route::get('Adm/servicos/visualizar', [ServicoController::class, 'retornarTodos'
 
 
 //ADM:CADASTROD DE agendamento
+Route::post('Adm/agenda', [AgendaController::class, 'cadastroAgenda']);
+Route::delete('Adm/agenda/delete/{id}', [AgendaController::class, 'excluir']);
+Route::get('Adm/agenda/visualizar', [AgendaController::class, 'visualizarAgenda']);
+Route::post('Adm/agenda/data/', [AgendaController::class, 'buscarPorData']);
+Route::post('Adm/agenda/Profissional{profissional_id}', [AgendaController::class, 'buscarPorIdProfissional']);
+route::get('Adm/agenda/find/{id}', [AgendaController::class, 'pesquisarPorId']);
+route::put('Adm/agenda/update', [AgendaController::class, 'update']);
 
-Route::post('adm/agenda/cadastroAgenda', [AgendaController::class, 'cadastroAgenda']);
-Route::delete('adm/agenda/deleteAgenda/{id}', [AgendaController::class, 'excluir']);
-Route::get('adm/agenda/visualizarAgenda', [AgendaController::class, 'visualizarAgenda']);
-Route::post('adm/agenda/buscarPorData/', [AgendaController::class, 'buscarPorData']);
-Route::post('adm/agenda/buscarPorIdProfissional{profissional_id}', [AgendaController::class, 'buscarPorIdProfissional']);
-route::get('adm/agenda/find/agendamento/{id}', [AgendaController::class, 'pesquisarPorId']);
-route::put('adm/agenda/update/agendamento', [AgendaController::class, 'update']);
 
 //ADM:Tipo de pagamento:
-Route::put('adm/tipo/pagamento/editar/tipo/pagamento', [TipoDePagamentoController::class,  'updatepagamento']);
-Route::post('adm/tipo/pagamento/cadastro/pagamento', [TipoDePagamentoController::class, 'cadastroTipoPagamento']);
-Route::post('adm/tipo/pagamento/pesquisar/nome/pagamento', [TipoDePagamentoController::class, 'pesquisarPorTipoPagamento']);
-Route::post('adm/tipo/pagamento/excluir/pagamento', [TipoDePagamentoController::class, 'deletarpagamento']);
-Route::delete('adm/tipo/pagamento/delete/pagamento/{id}', [TipoDePagamentoController::class, 'deletarpagamento']);
-Route::get('adm/tipo/pagamento/visualizar/pagamento', [TipoDePagamentoController::class, 'visualizarCadastroTipoPagamento']);
-Route::get('adm/tipo/pagamento/visualizar/pagamento/habilitado', [TipoDePagamentoController::class, 'visualizarCadastroTipoPagamentoHabilitado']);
-Route::get('adm/tipo/pagamento/visualizar/pagamento/desabilitado', [TipoDePagamentoController::class, 'visualizarCadastroTipoPagamentoDesabilitado']);
+route::post('Adm/pagamento', [TipoDePagamentoController::class, 'pagamentos']);
+route::get('Adm/pagamento/nome', [TipoDePagamentoController::class, 'pesquisarPorTipoPagamento']);
+route::get('Adm/pagamento/find/{id}', [TipoDePagamentoController::class, 'pesquisarPorId']);
+route::delete('Adm/pagamento/delete/{id}', [TipoDePagamentoController::class, 'excluir']);
+route::put('Adm/pagamento/update', [TipoDePagamentoController::class, 'update']);
+route::get('Adm/pagamento/visualizar', [TipoDePagamentoController::class, 'retornarTodos']);
+route::get('Adm/pagamento/habilitados', [TipoDePagamentoController::class, 'retornarTodosHabilitados']);
+route::get('Adm/pagamento/desabilitados', [TipoDePagamentoController::class, 'retornarTodosDesabilitados']);
 
 
 //Profissional
@@ -120,13 +120,13 @@ Route::post('profissional/clientes/senha',[clientecontroller::class, 'redefinirS
 
 
 //PROFISSIONAL: cadastro dE Horarios
-Route::post('profissional/cadastroAgenda', [AgendaController::class, 'cadastroAgenda']);
-Route::delete('profissional/deleteAgenda/{id}', [AgendaController::class, 'excluir']);
-Route::get('profissional/visualizarAgenda', [AgendaController::class, 'visualizarAgenda']);
-Route::post('profissional/buscarPorData/', [AgendaController::class, 'buscarPorData']);
-Route::post('profissional/buscarPorIdProfissional{profissional_id}', [AgendaController::class, 'buscarPorIdProfissional']);
-route::get('profissional/find/agendamento/{id}', [AgendaController::class, 'pesquisarPorId']);
-route::put('profissional/update/agendamento', [AgendaController::class, 'update']);
+Route::post('profissional/agenda', [AgendaController::class, 'cadastroAgenda']);
+Route::delete('profissional/agenda/delete/{id}', [AgendaController::class, 'excluir']);
+Route::get('profissional/agenda/visualizar', [AgendaController::class, 'visualizarAgenda']);
+Route::post('profissional/agenda/data', [AgendaController::class, 'buscarPorData']);
+Route::post('profissional/agenda/Profissional{profissional_id}', [AgendaController::class, 'buscarPorIdProfissional']);
+route::get('profissional/agenda/find/{id}', [AgendaController::class, 'pesquisarPorId']);
+route::put('profissional/agenda/update', [AgendaController::class, 'update']);
 
 
 
@@ -141,21 +141,19 @@ route::get('servicos/visualizar', [ServicoController::class, 'retornarTodos']);
 
 
 //Tipo de pagamento:
-Route::put('editar/tipo/pagamento', [TipoDePagamentoController::class,  'updatepagamento']);
-Route::post('cadastro/pagamento', [TipoDePagamentoController::class, 'cadastroTipoPagamento']);
-Route::post('pesquisar/nome/pagamento', [TipoDePagamentoController::class, 'pesquisarPorTipoPagamento']);
-Route::post('excluir/pagamento', [TipoDePagamentoController::class, 'deletarpagamento']);
-Route::delete('delete/pagamento/{id}', [TipoDePagamentoController::class, 'deletarpagamento']);
-Route::get('visualizar/pagamento', [TipoDePagamentoController::class, 'visualizarCadastroTipoPagamento']);
-Route::get('visualizar/pagamento/habilitado', [TipoDePagamentoController::class, 'visualizarCadastroTipoPagamentoHabilitado']);
-Route::get('visualizar/pagamento/desabilitado', [TipoDePagamentoController::class, 'visualizarCadastroTipoPagamentoDesabilitado']);
+route::post('pagamento', [TipoDePagamentoController::class, 'pagamentos']);
+route::get('pagamento/nome', [TipoDePagamentoController::class, 'pesquisarPorTipoPagamento']);
+route::get('pagamento/find/{id}', [TipoDePagamentoController::class, 'pesquisarPorId']);
+route::delete('pagamento/delete/{id}', [TipoDePagamentoController::class, 'excluir']);
+route::put('pagamento/update', [TipoDePagamentoController::class, 'update']);
+route::get('pagamento/visualizar', [TipoDePagamentoController::class, 'retornarTodos']);
 
 
-//CADASTROD DE Horarios
-Route::post('cadastroAgenda', [AgendaController::class, 'cadastroAgenda']);
-Route::delete('deleteAgenda/{id}', [AgendaController::class, 'excluir']);
-Route::get('visualizarAgenda', [AgendaController::class, 'visualizarAgenda']);
-Route::post('buscarPorData/', [AgendaController::class, 'buscarPorData']);
-Route::post('buscarPorIdProfissional{profissional_id}', [AgendaController::class, 'buscarPorIdProfissional']);
-route::get('find/agendamento/{id}', [AgendaController::class, 'pesquisarPorId']);
-route::put('update/agendamento', [AgendaController::class, 'update']);
+//CADASTRO DE Horarios
+Route::post('agenda', [AgendaController::class, 'cadastroAgenda']);
+Route::delete('agenda/delete/{id}', [AgendaController::class, 'excluir']);
+Route::get('agenda/visualizar', [AgendaController::class, 'visualizarAgenda']);
+Route::post('agenda/data', [AgendaController::class, 'buscarPorData']);
+Route::post('agenda/Profissional{profissional_id}', [AgendaController::class, 'buscarPorIdProfissional']);
+route::get('agenda/find/{id}', [AgendaController::class, 'pesquisarPorId']);
+route::put('agenda/update', [AgendaController::class, 'update']);
