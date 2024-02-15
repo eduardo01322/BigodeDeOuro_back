@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdiministradorFormRequest;
+use App\Http\Requests\AdiministradorFormRequestUpdate;
 use Illuminate\Http\Request;
-use App\Http\Requests\AdiministradorUserRequestUpdate;
-use App\Http\Requests\AdiministradorUserRequest;
 use App\Models\Adiministrador;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 class AdiministradorController extends Controller
 {
-    public function adms(AdiministradorUserRequest $request)
+    public function adms(AdiministradorFormRequest $request)
     {
         $Adiministrador = Adiministrador::create([
             'nome' => $request->nome,
@@ -70,7 +71,7 @@ public function PesquisarPorEmail(Request $request)
     ]);
 }
 //ATUALIZAÇÃO DE Adiministrador
-public function update(AdiministradorUserRequestUpdate $request)
+public function update(AdiministradorFormRequestUpdate $request)
 {
 $Adiministrador = Adiministrador::find($request->id);
 if (!isset($Adiministrador)) {
@@ -88,7 +89,9 @@ if (isset($request->email)) {
 if (isset($request->cpf)) {
     $Adiministrador->cpf = $request->cpf;
 }
+
 $Adiministrador->update();
+
 return response()->json([
     'status' => true,
     'message' => 'Adiministrador atualizado'
@@ -156,4 +159,63 @@ public function redefinirSenha(Request $request){
         'message' => "Sua senha foi atualizada"
     ]);
 }
+
+public function store(AdiministradorFormRequest $request)
+    {
+        try {
+            $data = $request->all();
+
+            $data['password'] = Hash::make($request->password);
+
+            $response = Adiministrador::create($data)->createToken($request->server('HTTP_USER_AGENT'))->plainTextToken;
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Admin cadastrado com sucesso',
+                'token' => $response
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function login(Request $request)
+    {
+        try {
+            if (Auth::guard('admins')->attempt([
+                'email' => $request->email,
+                'password' => $request->password
+            ])) {
+                $user = Auth::guard('admins')->user();
+
+                /** @var UserContract $user */
+
+                $token = $user->createToken($request->server('HTTP_USER_AGENT', ['admins']))->plainTextToken;
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Login efetuado com sucesso',
+                    'token' => $token
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Credenciais incorretas'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function verificaUsuarioLogado(Request $request)
+    {
+        return 'Logado';
+    }
+    
 }
