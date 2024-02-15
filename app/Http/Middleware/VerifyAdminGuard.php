@@ -21,6 +21,11 @@ class VerifyAdminGuard
                 'status' => false,
                 'message'=> 'Não é uma instancia de ADM'
             ]);
+        }else{
+            return response()->json([
+                'status' => true,
+                'message'=> 'É uma instancia de ADM'
+            ]);
         }
 
         return $next($request);
