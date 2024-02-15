@@ -9,7 +9,7 @@ use App\Models\Adiministrador;
 use Illuminate\Support\Facades\Hash;
 class AdiministradorController extends Controller
 {
-    public function cadastroAdiministrador(AdiministradorUserRequest $request)
+    public function adms(AdiministradorUserRequest $request)
     {
         $Adiministrador = Adiministrador::create([
             'nome' => $request->nome,
@@ -95,7 +95,7 @@ return response()->json([
 ]);
 }
 //FUNÇÃO DE EXCLUIR
-public function deletarAdiministrador($Adiministrador)
+public function excluir($Adiministrador)
 {
  $Adiministrador = Adiministrador::find($Adiministrador);
  if (!isset($Adiministrador)) {

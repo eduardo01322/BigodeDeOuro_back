@@ -38,7 +38,7 @@ class ProfissionalController extends Controller
         ], 200);
     }
     //PESQUISA POR NOME
-    public function pesquisarPorProfissionalNome(Request $request)
+    public function pesquisarPorNome(Request $request)
     {
         $profissional = Profissional::where('nome', 'like', '%' . $request->nome . '%')->get();
         if (count($profissional)) {
@@ -99,7 +99,7 @@ class ProfissionalController extends Controller
         ]);
     }
     //ATUALIZAÇÃO DO PROFISSIONAL
-    public function updateProfissional(ProfissionalFormRequestUpdate $request)
+    public function update(ProfissionalFormRequestUpdate $request)
     {
         $profissional = Profissional::find($request->id);
         if (!isset($profissional)) {
@@ -160,7 +160,7 @@ class ProfissionalController extends Controller
         ]);
     }
     //FUNÇÃO DE EXCLUIR
-    public function  deletarProfissional($id)
+    public function  excluir($id)
     {
         $profissional = Profissional::find($id);
         if (!isset($profissional)) {

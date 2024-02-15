@@ -37,7 +37,7 @@ Route::post('Adm/senha',[AdiministradorController::class, 'redefinirSenha']);
 
 
 //Adm Profissional
-route::post('Adm/profissional', [Profissionalcontroller::class, 'profissionais']);
+route::post('Adm/profissional', [Profissionalcontroller::class, 'cadastroProfissional']);
 route::get('Adm/profissional/nome', [Profissionalcontroller::class, 'pesquisarPorNome']);
 route::get('Adm/profissional/cpf', [Profissionalcontroller::class, 'pesquisarPorCpf']);
 route::get('Adm/profissional/celular', [Profissionalcontroller::class, 'pesquisarPorCelular']);
