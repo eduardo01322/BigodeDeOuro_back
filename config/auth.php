@@ -43,7 +43,7 @@ return [
 
         'adiministradors'=>[
             'driver' => 'session',
-            'provider' => 'admins',
+            'provider' => 'adiministradors',
         ],
     ],
 
@@ -75,9 +75,9 @@ return [
         //     'table' => 'users',
         // ],
 
-        'admins'=>[
+        'adiministradors'=>[
             'driver'=>'eloquent',
-            'model'=> App\Models\Admin::class
+            'model'=> App\Models\Adiministrador::class
         ]
     ],
 

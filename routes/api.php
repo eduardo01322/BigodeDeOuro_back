@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Middleware\IsAuthenticated;
+use App\Http\Middleware\SetSanctumGuard;
+use App\Http\Middleware\VerifyAdminGuard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgendaController;
@@ -34,6 +37,9 @@ route::delete('Adm/delete/{id}', [AdiministradorController::class, 'excluir']);
 route::put('Adm/update', [AdiministradorController::class, 'update']);
 route::get('Adm/visualizar', [AdiministradorController::class, 'retornarTodos']);
 Route::post('Adm/senha',[AdiministradorController::class, 'redefinirSenha']);
+Route::post('Adm/login', [AdiministradorController::class, 'login']);
+Route::get('Adm/teste', [AdiministradorController::class, 'verificaUsuarioLogado'])
+->middleware(['auth:sanctum', SetSanctumGuard::class, IsAuthenticated::class]);
 
 
 //Adm Profissional

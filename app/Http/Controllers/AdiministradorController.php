@@ -160,40 +160,19 @@ public function redefinirSenha(Request $request){
     ]);
 }
 
-public function store(AdiministradorFormRequest $request)
-    {
-        try {
-            $data = $request->all();
-
-            $data['password'] = Hash::make($request->password);
-
-            $response = Adiministrador::create($data)->createToken($request->server('HTTP_USER_AGENT'))->plainTextToken;
-
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Admin cadastrado com sucesso',
-                'token' => $response
-            ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
-    }
 
     public function login(Request $request)
     {
         try {
-            if (Auth::guard('admins')->attempt([
+            if (Auth::guard('adiministradors')->attempt([
                 'email' => $request->email,
                 'password' => $request->password
             ])) {
-                $user = Auth::guard('admins')->user();
+                $user = Auth::guard('adiministradors')->user();
 
                 /** @var UserContract $user */
 
-                $token = $user->createToken($request->server('HTTP_USER_AGENT', ['admins']))->plainTextToken;
+                $token = $user->createToken($request->server('HTTP_USER_AGENT', ['adiministradors']))->plainTextToken;
                 return response()->json([
                     'status' => true,
                     'message' => 'Login efetuado com sucesso',
