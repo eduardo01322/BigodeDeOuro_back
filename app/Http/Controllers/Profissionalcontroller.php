@@ -222,6 +222,15 @@ class ProfissionalController extends Controller
                 'message' => "Profissional não encontrado"
             ]);
         }
+
+        $profissional = Profissional::where('cpf', $request->cpf)->first();
+        if (!isset($profissional)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Profissional não encontrado"
+            ]);
+        }
+
         $novaSenha = $request->novaSenha; //  campo no formulário  chamado de "novaSenha"
         $profissional->password = Hash::make($novaSenha);
         $profissional->update();

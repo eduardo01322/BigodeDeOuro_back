@@ -221,7 +221,16 @@ class ClienteController extends Controller
                 'message' => "Cliente não encontrado"
             ]);
         }
-        $novaSenha = $request->novaSenha; //  campo no formulário  chamado de "novaSenha"
+
+        $Cliente = Cliente::where('cpf', $request->cpf)->first();
+        if (!isset($Cliente)) {
+            return response()->json([
+                'status' => false,
+                'message' => "Cliente não encontrado"
+            ]);
+        }
+
+        $novaSenha = $request->novaSenha;
         $Cliente->password = Hash::make($novaSenha);
         $Cliente->update();
         return response()->json([

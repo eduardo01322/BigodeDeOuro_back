@@ -144,16 +144,24 @@ $Adiministrador = Adiministrador::find($id);
 }
 
 public function redefinirSenha(Request $request){
-    $profissional = Adiministrador::where('email', $request->email)->first();
-    if (!isset($profissional)){
+    $Adiministrador = Adiministrador::where('email', $request->email)->first();
+    if (!isset($Adiministrador)){
         return response()->json([
             'status' => false,
             'message' => "Adiministrador não encontrado"
         ]);
     }
+    $Adiministrador = Adiministrador::where('cpf', $request->cpf)->first();
+    if (!isset($Adiministrador)){
+        return response()->json([
+            'status' => false,
+            'message' => "Adm não encontrado"
+        ]);
+    }
+
     $novaSenha = $request->novaSenha;
-    $profissional->password = $novaSenha;
-    $profissional->update();    
+    $Adiministrador->password = $novaSenha;
+    $Adiministrador->update();    
     return response()->json([
         'status' => true,
         'message' => "Sua senha foi atualizada"
